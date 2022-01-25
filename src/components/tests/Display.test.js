@@ -30,7 +30,7 @@ test('renders without errors with no props', ()=>{
     
 });
 
-test('renders Show component when the button is clicked ', ()=>{
+test('renders Show component when the button is clicked ', async ()=>{
     mockFetchShow.mockResolvedValueOnce(testShow);
 
     render(<Display/>);
@@ -41,7 +41,7 @@ test('renders Show component when the button is clicked ', ()=>{
     expect(show).toBeInTheDocument();
 });
 
-test('renders show season options matching your data when the button is clicked', ()=>{
+test('renders show season options matching your data when the button is clicked', async ()=>{
     mockFetchShow.mockResolvedValueOnce(testShow);
 
     render(<Display/>);
@@ -54,3 +54,18 @@ test('renders show season options matching your data when the button is clicked'
     });
 
 });
+
+test ('displayFunc is called when the fetch button is pressed', async () => {
+    mockFetchShow.mockResolvedValueOnce(testShow);
+    const displayFunc = jest.fn();
+
+    render(<Display displayFunc={displayFunc}/>);
+    const button =screen.getByRole('button');
+    userEvent.click(button);
+
+    await waitFor(() => {
+        expect(displayFunc).toHaveBeenCalled();  
+    });
+
+});
+
