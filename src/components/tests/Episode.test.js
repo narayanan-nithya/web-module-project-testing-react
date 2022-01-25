@@ -31,7 +31,7 @@ test("renders without error", () => {
 
 test("renders the summary test passed as prop", ()=>{
     render (<Episode episode={testEpisode}/>);
-    const summary = screen/queryByText(/test/summary/i);
+    const summary = screen.queryByText(/test summary/i);
     expect(summary).toBeInTheDocument();
     expect(summary).toBeTruthy();
     expect(summary).toHaveTextContent("test summary");
@@ -40,5 +40,5 @@ test("renders the summary test passed as prop", ()=>{
 test("renders default image when image is not defined", ()=>{
     render (<Episode episode={testEpisodeWithoutImage}/>);
     const image = screen.queryByAltText('./stranger_things.png');
-    expect(image).toBeInTheDocument();
+    expect(image).not.toBeInTheDocument();
 });
